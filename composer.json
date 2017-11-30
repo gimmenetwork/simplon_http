@@ -1,6 +1,6 @@
 {
   "name": "simplon/http",
-  "description": "HTTP PSR7 aware helper",
+  "description": "Client independent psr7 http implementation",
   "homepage": "https://github.com/fightbulc/simplon_http",
   "type": "library",
   "keywords": [
