@@ -3,6 +3,7 @@
 namespace Simplon\Http;
 
 use Http\Client\HttpClient;
+use Psr\Http\Message\RequestInterface;
 
 abstract class HttpAdapter
 {
@@ -41,4 +42,12 @@ abstract class HttpAdapter
      * @return HttpClient
      */
     abstract protected function getClient(array $config): HttpClient;
+
+    /**
+     * @param string $method
+     * @param string $uri
+     *
+     * @return RequestInterface
+     */
+    abstract public function buildRequest(string $method, string $uri): RequestInterface;
 }

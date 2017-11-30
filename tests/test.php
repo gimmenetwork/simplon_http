@@ -3,6 +3,7 @@
 use GuzzleHttp\Psr7\Request;
 use Http\Adapter\Guzzle6\Client;
 use Http\Client\HttpClient;
+use Psr\Http\Message\RequestInterface;
 use Simplon\Http\HttpAdapter;
 use Simplon\Http\Strategies\JsonStrategy;
 
@@ -23,6 +24,17 @@ class GuzzleClient extends HttpAdapter
     {
         return Client::createWithConfig($config);
     }
+
+    /**
+     * @param string $method
+     * @param string $uri
+     *
+     * @return RequestInterface
+     */
+    public function buildRequest(string $method, string $uri): RequestInterface
+    {
+        return new Request($method, $uri);
+    }
 }
 
 //
@@ -31,10 +43,11 @@ class GuzzleClient extends HttpAdapter
 
 try
 {
-    $request = new Request('POST', 'http://someurl.com/1.0/register');
-    new JsonStrategy($request, ['token' => 'XXX12345']);
+    $http = new GuzzleClient();
+    $request = $http->buildRequest('POST', 'http://someurl.com/1.0/register');
+    new JsonStrategy($request, ['token' => '00RVS2CI7K1S']);
 
-    $response = (new GuzzleClient())->getAdapter()->sendRequest($request);
+    $response = $http->getAdapter()->sendRequest($request);
     var_dump($response->getBody()->getContents());
 }
 catch (Exception $e)
