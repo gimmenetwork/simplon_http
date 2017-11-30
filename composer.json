@@ -1,0 +1,32 @@
+{
+  "name": "simplon/http",
+  "description": "HTTP PSR7 aware helper",
+  "homepage": "https://github.com/fightbulc/simplon_http",
+  "type": "library",
+  "keywords": [
+    "http",
+    "client",
+    "psr7"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Tino Ehrich",
+      "email": "tino@bigpun.me",
+      "role": "developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "php-http/client-implementation": "^1.0",
+    "php-http/client-common": "^1.0"
+  },
+  "require-dev": {
+    "php-http/guzzle6-adapter": "^1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Simplon\\Http\\": "src/"
+    }
+  }
+}
