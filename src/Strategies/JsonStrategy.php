@@ -7,6 +7,11 @@ use Psr\Http\Message\RequestInterface;
 class JsonStrategy implements StrategyInterface
 {
     /**
+     * @var RequestInterface
+     */
+    private $request;
+
+    /**
      * @param RequestInterface $request
      * @param array|null $body
      */
@@ -21,5 +26,15 @@ class JsonStrategy implements StrategyInterface
             )
             ;
         }
+
+        $this->request = $request;
+    }
+
+    /**
+     * @return RequestInterface
+     */
+    public function getRequest(): RequestInterface
+    {
+        return $this->request;
     }
 }

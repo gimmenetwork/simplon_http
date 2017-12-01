@@ -13,7 +13,7 @@
 use GuzzleHttp\Psr7\Request;
 use Http\Adapter\Guzzle6\Client;
 use Http\Client\HttpClient;
-use Simplon\Http\HttpAdapter;
+use Simplon\Http\Http;
 use Simplon\Http\Strategies\JsonStrategy;
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -22,7 +22,7 @@ require __DIR__ . '/../vendor/autoload.php';
 // guzzle client example
 //
 
-class GuzzleClient extends HttpAdapter
+class GuzzleClient extends Http
 {
     /**
      * @param array $config

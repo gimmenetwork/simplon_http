@@ -10,4 +10,9 @@ interface StrategyInterface
      * @param RequestInterface $request
      */
     public function __construct(RequestInterface $request);
+
+    /**
+     * @return RequestInterface
+     */
+    public function getRequest(): RequestInterface;
 }
