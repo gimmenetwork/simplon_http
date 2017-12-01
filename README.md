@@ -48,12 +48,14 @@ class SomeHttp
     }
 }
 
+$foo = new SomeHttp(new GuzzleHttp());
+$response = $foo->register();
+
 //
-// send POST as JSON request
+// print response
 //
 
-$foo = new SomeHttp(new GuzzleHttp());
-var_dump($foo->register()->getBody()->getContents());
+var_dump($response->getBody()->getContents());
 ```
 
 # License
