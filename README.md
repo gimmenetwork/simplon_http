@@ -10,28 +10,41 @@
 # Example
 
 ```php
-use GuzzleHttp\Psr7\Request;
-use Http\Adapter\Guzzle6\Client;
-use Http\Client\HttpClient;
-use Simplon\Http\Http;
+use Psr\Http\Message\ResponseInterface;
+use Simplon\Http\Adapter\GuzzleHttp;
+use Simplon\Http\HttpInterface;
 use Simplon\Http\Strategies\JsonStrategy;
 
-require __DIR__ . '/../vendor/autoload.php';
-
 //
-// guzzle client example
+// some class
 //
 
-class GuzzleClient extends Http
+class SomeHttp
 {
     /**
-     * @param array $config
-     *
-     * @return HttpClient
+     * @var HttpInterface
      */
-    protected function getClient(array $config): HttpClient
+    private $http;
+
+    /**
+     * @param HttpInterface $http
+     */
+    public function __construct(HttpInterface $http)
     {
-        return Client::createWithConfig($config);
+        $this->http = $http;
+    }
+
+    /**
+     * @return ResponseInterface
+     * @throws Exception
+     * @throws \Http\Client\Exception
+     */
+    public function register(): ResponseInterface
+    {
+        $request = $this->http->buildRequest('POST', 'http://someapi.com/1.0/register');
+        new JsonStrategy($request, ['token' => '00RVS2CI7K1S']);
+
+        return $this->http->sendRequest($request);
     }
 }
 
@@ -39,11 +52,8 @@ class GuzzleClient extends Http
 // send POST as JSON request
 //
 
-$request = new Request('POST', 'http://someurl.com/1.0/register');
-new JsonStrategy($request, ['token' => 'XXX12345']);
-
-$response = (new GuzzleClient())->getAdapter()->sendRequest($request);
-var_dump($response->getBody()->getContents());
+$foo = new SomeHttp(new GuzzleHttp());
+var_dump($foo->register()->getBody()->getContents());
 ```
 
 # License
