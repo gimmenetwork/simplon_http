@@ -8,7 +8,7 @@ require __DIR__ . '/SomeHttp.php';
 try
 {
     $foo = new SomeHttp(new GuzzleHttp());
-    var_dump($foo->register()->getBody()->getContents());
+    var_dump($foo->register());
 }
 catch (\Http\Client\Exception | Exception $e)
 {

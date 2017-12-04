@@ -1,8 +1,8 @@
 <?php
 
-use Psr\Http\Message\ResponseInterface;
 use Simplon\Http\HttpInterface;
 use Simplon\Http\Strategies\JsonRequestStrategy;
+use Simplon\Http\Strategies\JsonResponseStrategy;
 
 class SomeHttp
 {
@@ -20,15 +20,22 @@ class SomeHttp
     }
 
     /**
-     * @return ResponseInterface
+     * @return array|null
      * @throws Exception
      * @throws \Http\Client\Exception
      */
-    public function register(): ResponseInterface
+    public function register(): ?array
     {
         $request = $this->http->buildRequest('POST', 'http://someapi.com/1.0/register');
         new JsonRequestStrategy($request, ['token' => '00RVS2CI7K1S']);
 
-        return $this->http->sendRequest($request);
+        $response = $this->http->sendRequest($request);
+
+        if ($contents = (new JsonResponseStrategy($response))->getContents())
+        {
+            return $contents;
+        }
+
+        return null;
     }
 }
