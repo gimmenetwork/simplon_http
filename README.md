@@ -13,7 +13,7 @@
 use Psr\Http\Message\ResponseInterface;
 use Simplon\Http\Adapter\GuzzleHttp;
 use Simplon\Http\HttpInterface;
-use Simplon\Http\Strategies\JsonStrategy;
+use Simplon\Http\Strategies\JsonRequestStrategy;
 
 //
 // some class
@@ -42,7 +42,7 @@ class SomeHttp
     public function register(): ResponseInterface
     {
         $request = $this->http->buildRequest('POST', 'http://someapi.com/1.0/register');
-        new JsonStrategy($request, ['token' => '00RVS2CI7K1S']);
+        new JsonRequestStrategy($request, ['token' => '00RVS2CI7K1S']);
 
         return $this->http->sendRequest($request);
     }

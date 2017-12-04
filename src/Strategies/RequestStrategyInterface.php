@@ -2,9 +2,10 @@
 
 namespace Simplon\Http\Strategies;
 
+
 use Psr\Http\Message\RequestInterface;
 
-interface StrategyInterface
+interface RequestStrategyInterface
 {
     /**
      * @param RequestInterface $request
