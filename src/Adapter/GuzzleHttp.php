@@ -24,7 +24,7 @@ class GuzzleHttp implements HttpInterface
      */
     private $config = [
         'verify'  => false,
-        'timeout' => 2,
+        'timeout' => 5, // ms
     ];
 
     /**
