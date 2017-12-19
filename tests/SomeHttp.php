@@ -10,13 +10,19 @@ class SomeHttp
      * @var HttpInterface
      */
     private $http;
+    /**
+     * @var array
+     */
+    private $config;
 
     /**
      * @param HttpInterface $http
+     * @param array $config
      */
-    public function __construct(HttpInterface $http)
+    public function __construct(HttpInterface $http, array $config)
     {
         $this->http = $http;
+        $this->config = $config;
     }
 
     /**
@@ -26,8 +32,17 @@ class SomeHttp
      */
     public function register(): ?array
     {
-        $request = $this->http->buildRequest('POST', 'http://someapi.com/1.0/register');
-        new JsonRequestStrategy($request, ['token' => '00RVS2CI7K1S']);
+        $request = $this->http->buildRequest('POST', $this->config['url']);
+        new JsonRequestStrategy($request, [
+            'token' => '00RVS2CI7K1S',
+            'c'     => [
+                'p' => 'unknown',
+                'd' => null,
+            ],
+            'uh'    => '6e1550460435f0bfffaccd1fed25b6dc',
+            'bh'    => 'c3845d2aca70fb9c9e93089ed1528176',
+            'd'     => 'm',
+        ]);
 
         $response = $this->http->sendRequest($request);
 

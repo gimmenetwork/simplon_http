@@ -1,0 +1,7 @@
+<?php
+return [
+    'url'  => 'http://some.api.com/1.0/register',
+    'data' => [
+        'name' => 'Joe',
+    ],
+];
