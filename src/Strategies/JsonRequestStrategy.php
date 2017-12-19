@@ -12,22 +12,22 @@ class JsonRequestStrategy implements RequestStrategyInterface
     private $request;
 
     /**
-     * @param RequestInterface $response
+     * @param RequestInterface $request
      * @param array|null $body
      */
-    public function __construct(RequestInterface $response, array $body = null)
+    public function __construct(RequestInterface $request, array $body = null)
     {
-        $response->withHeader('Content-type', 'application/json');
+        $request->withHeader('Content-type', 'application/json');
 
         if ($body)
         {
-            $response->getBody()->write(
+            $request->getBody()->write(
                 json_encode($body)
             )
             ;
         }
 
-        $this->request = $response;
+        $this->request = $request;
     }
 
     /**
