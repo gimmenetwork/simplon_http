@@ -33,20 +33,9 @@ class SomeHttp
     public function register(): ?array
     {
         $request = $this->http->buildRequest('POST', $this->config['url']);
-        new JsonRequestStrategy($request, [
-            'token' => '00RVS2CI7K1S',
-            'c'     => [
-                'p' => 'unknown',
-                'd' => null,
-            ],
-            'uh'    => '6e1550460435f0bfffaccd1fed25b6dc',
-            'bh'    => 'c3845d2aca70fb9c9e93089ed1528176',
-            'd'     => 'm',
-        ]);
+        $response = $this->http->sendRequest(JsonRequestStrategy::create($request, $this->config['data']));
 
-        $response = $this->http->sendRequest($request);
-
-        if ($contents = (new JsonResponseStrategy($response))->getContents())
+        if ($contents = JsonResponseStrategy::create($response))
         {
             return $contents;
         }

@@ -4,31 +4,23 @@ namespace Simplon\Http\Strategies;
 
 use Psr\Http\Message\ResponseInterface;
 
-class JsonResponseStrategy implements ResponseStrategyInterface
+class JsonResponseStrategy
 {
     /**
-     * @var ResponseInterface
-     */
-    private $response;
-
-    /**
      * @param ResponseInterface $response
-     */
-    public function __construct(ResponseInterface $response)
-    {
-        $this->response = $response;
-    }
-
-    /**
+     *
      * @return array|null
      */
-    public function getContents(): ?array
+    public static function create(ResponseInterface $response): ?array
     {
-        $result = json_decode($this->response->getBody()->getContents(), true);
-
-        if (is_array($result))
+        if (strpos($response->getHeaderLine('Content-type'), 'application/json') !== false)
         {
-            return $result;
+            $result = json_decode($response->getBody()->getContents(), true);
+
+            if (is_array($result))
+            {
+                return $result;
+            }
         }
 
         return null;

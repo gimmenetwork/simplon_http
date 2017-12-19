@@ -4,21 +4,16 @@ namespace Simplon\Http\Strategies;
 
 use Psr\Http\Message\RequestInterface;
 
-class JsonRequestStrategy implements RequestStrategyInterface
+class JsonRequestStrategy
 {
-    /**
-     * @var RequestInterface
-     */
-    private $request;
-
     /**
      * @param RequestInterface $request
      * @param array|null $body
+     *
+     * @return RequestInterface
      */
-    public function __construct(RequestInterface $request, array $body = null)
+    public static function create(RequestInterface $request, array $body = null): RequestInterface
     {
-        $request->withHeader('Content-type', 'application/json');
-
         if ($body)
         {
             $request->getBody()->write(
@@ -27,14 +22,6 @@ class JsonRequestStrategy implements RequestStrategyInterface
             ;
         }
 
-        $this->request = $request;
-    }
-
-    /**
-     * @return RequestInterface
-     */
-    public function getRequest(): RequestInterface
-    {
-        return $this->request;
+        return $request->withHeader('Content-type', 'application/json');
     }
 }
