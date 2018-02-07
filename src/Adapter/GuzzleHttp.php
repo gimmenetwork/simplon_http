@@ -5,8 +5,8 @@ namespace Simplon\Http\Adapter;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
 use Http\Client\Exception\HttpException;
 use Http\Promise\Promise;
 use Psr\Http\Message\RequestInterface;
@@ -61,7 +61,6 @@ class GuzzleHttp implements HttpInterface
      * @param RequestInterface $request
      *
      * @return ResponseInterface
-     * @throws \Exception
      * @throws HttpException
      */
     public function sendRequest(RequestInterface $request): ResponseInterface
@@ -70,9 +69,9 @@ class GuzzleHttp implements HttpInterface
         {
             return $this->getClient()->send($request);
         }
-        catch (GuzzleException $e)
+        catch (GuzzleException | RequestException $e)
         {
-            throw new HttpException($e->getMessage(), $request, new Response());
+            throw new HttpException($e->getMessage(), $request, $e->getResponse());
         }
     }
 
