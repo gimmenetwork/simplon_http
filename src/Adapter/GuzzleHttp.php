@@ -7,6 +7,7 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use Http\Client\Exception\HttpException;
 use Http\Promise\Promise;
 use Psr\Http\Message\RequestInterface;
@@ -24,7 +25,7 @@ class GuzzleHttp implements HttpInterface
      */
     private $config = [
         'verify'  => false,
-        'timeout' => 5, // ms
+        'timeout' => 5, // seconds
     ];
 
     /**
@@ -71,7 +72,14 @@ class GuzzleHttp implements HttpInterface
         }
         catch (GuzzleException | RequestException $e)
         {
-            throw new HttpException($e->getMessage(), $request, $e->getResponse());
+            $response = $e->getResponse();
+
+            if (!$response)
+            {
+                $response = new Response();
+            }
+
+            throw new HttpException($e->getMessage(), $request, $response);
         }
     }
 
