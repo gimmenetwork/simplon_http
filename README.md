@@ -42,7 +42,7 @@ class SomeHttp
     public function register(): ResponseInterface
     {
         $request = $this->http->buildRequest('POST', 'http://someapi.com/1.0/register');
-        new JsonRequestStrategy($request, ['token' => '00RVS2CI7K1S']);
+        JsonRequestStrategy::create($request, ['token' => '00RVS2CI7K1S']);
 
         return $this->http->sendRequest($request);
     }
