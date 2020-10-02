@@ -1,6 +1,6 @@
 {
-  "name": "simplon/http",
-  "description": "HTTP client independent PSR7 implementation",
+  "name": "gimmenetwork/simplon_http",
+  "description": "[FORK] HTTP client independent PSR7 implementation",
   "homepage": "https://github.com/fightbulc/simplon_http",
   "type": "library",
   "keywords": [
