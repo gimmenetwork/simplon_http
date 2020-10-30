@@ -26,5 +26,8 @@
     "psr-4": {
       "Simplon\\Http\\": "src/"
     }
+  },
+  "replace": {
+    "simplon/http": "0.0.*"
   }
 }
